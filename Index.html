@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Master Challenge: Skills for Business</title>
+<style>
+body {
+font-family: "Segoe UI", sans-serif;
+background: linear-gradient(135deg, #0a9396, #005f73);
+color: #fff;
+text-align: center;
+margin: 0;
+padding: 0;
+}
+h1 { margin-top: 20px; }
+.container {
+background: #fff;
+color: #000;
+margin: 20px auto;
+padding: 20px;
+border-radius: 12px;
+width: 85%;
+max-width: 600px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+button {
+background-color: #0a9396;
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 10px 20px;
+margin: 10px;
+cursor: pointer;
+font-size: 1em;
+}
+button:hover { background-color: #007f89; }
+.progress-bar {
+width: 80%;
+background: #ccc;
+border-radius: 8px;
+margin: 20px auto;
+overflow: hidden;
+}
+.progress { height: 15px; background: #94d2bd; width: 0%; transition: width 0.3s; }
+#timer { font-size: 1.2em; color: #ffb703; margin-top: 10px; }
+table {
+width: 80%;
+margin: 20px auto;
+background: #fff;
+color: #000;
+border-collapse: collapse;
+border-radius: 10px;
+overflow: hidden;
+}
+th, td { padding: 8px 10px; border-bottom: 1px solid #ccc; }
+</style>
+</head>
+<body>
+
+<h1>📊 Excel Master Challenge: Skills for Business</h1>
+
+<div class="container">
+<div id="login">
+<p>Ingresa tu nombre o correo para comenzar:</p>
+<input type="text" id="playerName" placeholder="Tu nombre o correo"><br><br>
+<p>Selecciona el nivel de evaluación:</p>
+<select id="level">
+<option value="basico">Nivel Básico</option>
+<option value="intermedio">Nivel Intermedio</option>
+<option value="avanzado">Nivel Avanzado</option>
+</select><br><br>
+<button id="startBtn">Iniciar Evaluación</button>
+</div>
+
+<div id="game" style="display:none;">
+<p id="question"></p>
+<div id="options"></div>
+<p id="timer"></p>
+<div class="progress-bar"><div class="progress" id="progress"></div></div>
+</div>
+
+<div id="result"></div>
+</div>
+
+<h2>🏅 Ranking General</h2>
+<table id="rankingTable">
+<thead><tr><th>Nombre</th><th>Nivel</th><th>Puntaje</th><th>Fecha</th></tr></thead>
+<tbody></tbody>
+</table>
+
+<script>
+// ==================== PREGUNTAS POR NIVEL ====================
+const preguntas = {
+basico: [
+{ q: "¿Qué atajo abre un libro nuevo en Excel?", options: ["Ctrl + N", "Ctrl + O", "Ctrl + L", "Ctrl + W"], answer: "Ctrl + N" },
+{ q: "¿Qué función suma un rango de celdas?", options: ["SUM", "COUNT", "AVERAGE", "ADD"], answer: "SUM" },
+{ q: "¿Qué hace la función AVERAGE?", options: ["Cuenta celdas", "Calcula promedio", "Muestra máximo", "Suma valores"], answer: "Calcula promedio" },
+{ q: "¿Qué símbolo se usa para fórmulas?", options: ["@", "=", "+", "#"], answer: "=" },
+{ q: "¿Cómo se llama la pestaña donde se crean gráficos?", options: ["Inicio", "Insertar", "Fórmulas", "Datos"], answer: "Insertar" },
+{ q: "¿Qué hace Ctrl + C?", options: ["Pega", "Copia", "Corta", "Deshace"], answer: "Copia" },
+{ q: "¿Qué tipo de dato maneja la función TODAY()?", options: ["Texto", "Número", "Fecha", "Hora"], answer: "Fecha" },
+{ q: "¿Qué hace la función MAX?", options: ["Devuelve el mayor valor", "Cuenta celdas", "Suma", "Promedia"], answer: "Devuelve el mayor valor" },
+{ q: "¿Qué opción ordena datos?", options: ["Filtros", "Ordenar", "Buscar", "Tabla dinámica"], answer: "Ordenar" },
+{ q: "¿Qué es una celda activa?", options: ["La celda seleccionada", "La primera del libro", "La celda bloqueada", "Una celda vacía"], answer: "La celda seleccionada" }
+],
+intermedio: [
+{ q: "¿Qué hace la función CONCAT?", options: ["Suma números", "Une textos", "Convierte texto a número", "Divide texto"], answer: "Une textos" },
+{ q: "¿Qué hace la función IF?", options: ["Compara valores", "Suma filas", "Filtra datos", "Ordena valores"], answer: "Compara valores" },
+{ q: "¿Qué diferencia hay entre COUNT y COUNTA?", options: ["COUNT cuenta números y COUNTA todo tipo de datos", "Son iguales", "COUNTA solo texto", "COUNT solo texto"], answer: "COUNT cuenta números y COUNTA todo tipo de datos" },
+{ q: "¿Qué hace el formato condicional?", options: ["Cambia color según criterios", "Cambia tamaño de texto", "Oculta celdas", "Ordena filas"], answer: "Cambia color según criterios" },
+{ q: "¿Qué herramienta se usa para resumir datos rápidamente?", options: ["Gráficos", "Tablas dinámicas", "Filtros", "Escenarios"], answer: "Tablas dinámicas" },
+{ q: "¿Qué función busca un valor en una columna?", options: ["VLOOKUP", "SUMIF", "MATCH", "FILTER"], answer: "VLOOKUP" },
+{ q: "¿Qué función redondea un número?", options: ["ROUND", "INT", "DECIMAL", "FLOOR"], answer: "ROUND" },
+{ q: "¿Qué herramienta agrupa datos numéricos por intervalos?", options: ["Agrupar en tabla dinámica", "Buscar objetivo", "Solver", "Formato condicional"], answer: "Agrupar en tabla dinámica" },
+{ q: "¿Qué hace Ctrl + Shift + L?", options: ["Aplica filtros", "Abre cuadro de nombre", "Cierra Excel", "Selecciona hoja"], answer: "Aplica filtros" },
+{ q: "¿Qué es un rango con nombre?", options: ["Conjunto de celdas nombradas", "Una celda bloqueada", "Un filtro", "Un gráfico"], answer: "Conjunto de celdas nombradas" }
+],
+avanzado: [
+{ q: "¿Qué función reemplaza VLOOKUP en versiones modernas?", options: ["MATCH", "XLOOKUP", "FILTER", "SEARCH"], answer: "XLOOKUP" },
+{ q: "¿Qué herramienta optimiza resultados con restricciones?", options: ["Solver", "Escenarios", "Buscar objetivo", "Filtros"], answer: "Solver" },
+{ q: "¿Qué hace la función INDEX?", options: ["Devuelve valor en posición específica", "Cuenta filas", "Ordena datos", "Busca duplicados"], answer: "Devuelve valor en posición específica" },
+{ q: "¿Qué combinación permite búsquedas dinámicas?", options: ["INDEX + MATCH", "IF + OR", "VLOOKUP + OFFSET", "FILTER + SORT"], answer: "INDEX + MATCH" },
+{ q: "¿Qué hace TRIM?", options: ["Elimina espacios extra", "Convierte texto en número", "Redondea valores", "Combina texto"], answer: "Elimina espacios extra" },
+{ q: "¿Qué hace INDIRECT?", options: ["Devuelve referencia de texto", "Cuenta celdas", "Copia valores", "Convierte número en texto"], answer: "Devuelve referencia de texto" },
+{ q: "¿Qué función extrae texto desde el medio de una celda?", options: ["LEFT", "MID", "RIGHT", "TEXT"], answer: "MID" },
+{ q: "¿Qué función convierte texto en número?", options: ["VALUE", "TEXT", "NUM", "FORMAT"], answer: "VALUE" },
+{ q: "¿Qué tipo de gráfico muestra participación porcentual?", options: ["Circular", "Barras", "Líneas", "Histograma"], answer: "Circular" },
+{ q: "¿Qué hace 'Actualizar todo' en tabla dinámica?", options: ["Refresca datos origen", "Ordena campos", "Agrega campos", "Duplica tabla"], answer: "Refresca datos origen" }
+]
+};
+
+let current = 0, score = 0, timer, timeLeft = 20, player = "", nivel = "";
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const startBtn = document.getElementById("startBtn");
+const timerEl = document.getElementById("timer");
+const progressEl = document.getElementById("progress");
+const loginEl = document.getElementById("login");
+const gameEl = document.getElementById("game");
+const resultEl = document.getElementById("result");
+const rankingTable = document.querySelector("#rankingTable tbody");
+
+// ==================== INICIO ====================
+startBtn.addEventListener("click", () => {
+player = document.getElementById("playerName").value.trim();
+nivel = document.getElementById("level").value;
+if (player === "") { alert("Por favor ingresa tu nombre o correo."); return; }
+loginEl.style.display = "none";
+gameEl.style.display = "block";
+current = 0; score = 0;
+showQuestion();
+});
+
+// ==================== FUNCIONES ====================
+function showQuestion() {
+const set = preguntas[nivel];
+if (current >= set.length) { endGame(); return; }
+const q = set[current];
+questionEl.textContent = q.q;
+optionsEl.innerHTML = "";
+q.options.forEach(opt => {
+const btn = document.createElement("button");
+btn.textContent = opt;
+btn.onclick = () => checkAnswer(opt);
+optionsEl.appendChild(btn);
+});
+resetTimer();
+progressEl.style.width = `${(current / set.length) * 100}%`;
+}
+
+function resetTimer() {
+clearInterval(timer);
+timeLeft = 20;
+timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+timer = setInterval(() => {
+timeLeft--;
+timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+if (timeLeft <= 0) {
+clearInterval(timer);
+current++;
+showQuestion();
+}
+}, 1000);
+}
+
+function checkAnswer(selected) {
+clearInterval(timer);
+const set = preguntas[nivel];
+if (selected === set[current].answer) score++;
+current++;
+showQuestion();
+}
+
+function endGame() {
+clearInterval(timer);
+const set = preguntas[nivel];
+const percentage = Math.round((score / set.length) * 100);
+const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "😐";
+resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
+<p>${percentage >= 80 ? "¡Felicidades, aprobaste!" : "No alcanzaste el 80%. Inténtalo nuevamente."}</p>
+<button onclick="location.reload()">Reiniciar</button>`;
+gameEl.style.display = "none";
+saveResult(player, nivel, percentage);
+}
+
+// ==================== RANKING Y EXPORTACIÓN ====================
+function saveResult(name, level, score) {
+const date = new Date().toLocaleString();
+const row = `<tr><td>${name}</td><td>${level}</td><td>${score}%</td><td>${date}</td></tr>`;
+rankingTable.innerHTML += row;
+
+// === Envío a Power Automate ===
+fetch("https://prod-xx.westus.logic.azure.com/workflows/TU_ID_DE_FLUJO/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=TU_TOKEN", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({ Nombre: name, Nivel: level, Puntaje: score, Fecha: date })
+})
+.then(res => console.log("Resultado enviado a Power Automate"))
+.catch(err => console.error(err));
+}
+</script>
+</body>
+</html>
