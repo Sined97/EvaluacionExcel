@@ -196,7 +196,7 @@ function endGame() {
 clearInterval(timer);
 const set = preguntas[nivel];
 const percentage = Math.round((score / set.length) * 100);
-const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "😐";
+const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "🥲";
 resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
 <p>${percentage >= 80 ? "¡Felicidades, aprobaste! Continua con el siguiente nivel." : "No alcanzaste la calificación aprobatoria, inténtalo nuevamente. Da clic en el botón Inicio"}</p>
 <button onclick="location.reload()">Inicio</button>`;
@@ -206,7 +206,8 @@ saveResult(player, nivel, percentage);
 
 // ==================== ENVÍO A POWER AUTOMATE / SHAREPOINT ====================
 function saveResult(name, level, score) {
-const date = new Date().toISOString();
+const dateObj = new Date ();
+const date = `${String(dateObj.getDate()).padStart(2, '0'}-${String(dateObj.getMonth()+1).padStart(2, '0'}-${dateObj.getFullYear()};
 const row = `<tr><td>${name}</td><td>${level}</td><td>${score}%</td><td>${date}</td></tr>`;
 rankingTable.innerHTML += row;
 
@@ -242,4 +243,5 @@ alert("Error de conexión al servidor. Revisa la red o el flujo.");
 </script>
 </body>
 </html>
+
 
