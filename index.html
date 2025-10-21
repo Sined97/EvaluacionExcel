@@ -44,6 +44,9 @@ overflow: hidden;
 }
 .progress { height: 15px; background: #94d2bd; width: 0%; transition: width 0.3s; }
 #timer { font-size: 1.2em; color: #ffb703; margin-top: 10px; }
+.feedback { font-weight: bold; font-size: 1.1em; margin-top: 10px; }
+.correct { color: green; }
+.incorrect { color: red; }
 table {
 width: 80%;
 margin: 20px auto;
@@ -78,6 +81,7 @@ th, td { padding: 8px 10px; border-bottom: 1px solid #ccc; }
 <div id="options"></div>
 <p id="timer"></p>
 <div class="progress-bar"><div class="progress" id="progress"></div></div>
+<p class="feedback" id="feedback"></p>
 </div>
 
 <div id="result"></div>
@@ -140,6 +144,8 @@ const loginEl = document.getElementById("login");
 const gameEl = document.getElementById("game");
 const resultEl = document.getElementById("result");
 const rankingTable = document.querySelector("#rankingTable tbody");
+const feedbackEl = document.getElementById("feedback");
+let canAnswer = true;
 
 // ==================== INICIO ====================
 startBtn.addEventListener("click", () => {
@@ -159,12 +165,16 @@ if (current >= set.length) { endGame(); return; }
 const q = set[current];
 questionEl.textContent = q.q;
 optionsEl.innerHTML = "";
+feedbackEl.textContent = "";
+canAnswer = true;
+
 q.options.forEach(opt => {
 const btn = document.createElement("button");
 btn.textContent = opt;
 btn.onclick = () => checkAnswer(opt);
 optionsEl.appendChild(btn);
 });
+
 resetTimer();
 progressEl.style.width = `${(current / set.length) * 100}%`;
 }
@@ -178,18 +188,37 @@ timeLeft--;
 timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
 if (timeLeft <= 0) {
 clearInterval(timer);
+feedbackEl.textContent = "⏰ Tiempo agotado!";
+feedbackEl.className = "feedback incorrect";
+canAnswer = false;
+setTimeout(() => {
 current++;
 showQuestion();
+}, 1000);
 }
 }, 1000);
 }
 
 function checkAnswer(selected) {
+if (!canAnswer) return;
+canAnswer = false;
 clearInterval(timer);
 const set = preguntas[nivel];
-if (selected === set[current].answer) score++;
+const correct = set[current].answer;
+
+if (selected === correct) {
+score++;
+feedbackEl.textContent = "✅ Correcto!";
+feedbackEl.className = "feedback correct";
+} else {
+feedbackEl.textContent = `❌ Incorrecto! La respuesta correcta era: ${correct}`;
+feedbackEl.className = "feedback incorrect";
+}
+
+setTimeout(() => {
 current++;
 showQuestion();
+}, 1000);
 }
 
 function endGame() {
@@ -198,51 +227,32 @@ const set = preguntas[nivel];
 const percentage = Math.round((score / set.length) * 100);
 const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "🥲";
 resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
-<p>${percentage >= 80 ? "¡Felicidades, aprobaste! Continua con el siguiente nivel." : "No alcanzaste la calificación aprobatoria, inténtalo nuevamente. Da clic en el botón Inicio"}</p>
+<p>${percentage >= 80 ? "¡Felicidades, aprobaste! Continua con el siguiente nivel." : "No alcanzaste la calificación aprobatoria, inténtalo nuevamente."}</p>
 <button onclick="location.reload()">Inicio</button>`;
 gameEl.style.display = "none";
+
 saveResult(player, nivel, percentage);
 }
 
-// ==================== ENVÍO A POWER AUTOMATE / SHAREPOINT ====================
+// ==================== RANKING ====================
 function saveResult(name, level, score) {
-const dateObj = new Date ();
-const date = const date = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth()+1).padStart(2, '0')}-${dateObj.getFullYear()}`;
-const row = `<tr><td>${name}</td><td>${level}</td><td>${score}%</td><td>${date}</td></tr>`;
-rankingTable.innerHTML += row;
+const dateObj = new Date();
+const date = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth()+1).padStart(2, '0')}-${dateObj.getFullYear()}`;
 
-const payload = {
-Nombre: name,
-Nivel: level,
-Puntaje: parseInt(score),
-Fecha: date
-};
+const row = { name, level, score, date };
+// Guardar en array temporal
+if (!window.ranking) window.ranking = [];
+window.ranking.push(row);
 
-// 🔗 Reemplaza esta URL con la de tu flujo Power Automate
-const urlPowerAutomate = "https://default18a01ad89727498aa47d17374c6fd9.f7.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/2539677317d84c6ea2f3ce57620bf0ea/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S8BpVMQBP7Y5W_u70hu3hj4iTnqxBSzHAAUCku62H9Y";
+// Ordenar por puntaje descendente
+window.ranking.sort((a,b) => b.score - a.score);
 
-fetch(urlPowerAutomate, {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify(payload)
-})
-.then(res => {
-if (res.ok) {
-console.log("✅ Resultado enviado correctamente a Power Automate / SharePoint");
-alert("🎯 Resultado registrado correctamente en SharePoint.");
-} else {
-console.error("❌ Error al enviar los datos: ", res.statusText);
-alert("⚠️ Error al registrar resultado. Intenta de nuevo.");
-}
-})
-.catch(err => {
-console.error("⚠️ Error de conexión con Power Automate: ", err);
-alert("Error de conexión al servidor. Revisa la red o el flujo.");
+// Renderizar tabla
+rankingTable.innerHTML = "";
+window.ranking.forEach(r => {
+rankingTable.innerHTML += `<tr><td>${r.name}</td><td>${r.level}</td><td>${r.score}%</td><td>${r.date}</td></tr>`;
 });
 }
 </script>
 </body>
 </html>
-
-
-
