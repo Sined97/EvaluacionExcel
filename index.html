@@ -207,7 +207,7 @@ saveResult(player, nivel, percentage);
 // ==================== ENVÍO A POWER AUTOMATE / SHAREPOINT ====================
 function saveResult(name, level, score) {
 const dateObj = new Date ();
-const date = `${String(dateObj.getDate()).padStart(2, '0'}-${String(dateObj.getMonth()+1).padStart(2, '0'}-${dateObj.getFullYear()};
+const date = const date = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth()+1).padStart(2, '0')}-${dateObj.getFullYear()}`;
 const row = `<tr><td>${name}</td><td>${level}</td><td>${score}%</td><td>${date}</td></tr>`;
 rankingTable.innerHTML += row;
 
@@ -243,5 +243,6 @@ alert("Error de conexión al servidor. Revisa la red o el flujo.");
 </script>
 </body>
 </html>
+
 
 
