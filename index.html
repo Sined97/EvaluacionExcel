@@ -5,71 +5,208 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excel Challenge: Skills for Business</title>
 <style>
-body {
-font-family: "Segoe UI", sans-serif;
-background: linear-gradient(135deg, #5F2A7F, #A3A3A3);
-color: #fff;
-text-align: center;
-margin: 0;
-padding: 0;
-}
-.container {
-background: #fff;
-color: #000;
-margin: 20px auto;
-padding: 20px;
-border-radius: 12px;
-width: 85%;
-max-width: 600px;
-box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-button {
-background-color: #5F2A7F;
-color: #fff;
-border: none;
-border-radius: 8px;
-padding: 10px 20px;
-margin: 10px;
-cursor: pointer;
-font-size: 1em;
-}
-button:hover { background-color: #4A1F6C; }
-header {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 30px;
-padding: 15px;
-background: #fff;
-}
-.logo { height: 60px; width: auto; }
-table {
-width: 80%;
-margin: 20px auto;
-background: #fff;
-color: #000;
-border-collapse: collapse;
-border-radius: 10px;
-overflow: hidden;
-}
-th, td {
-padding: 8px 10px;
-border-bottom: 1px solid #ccc;
-}
-.feedback { font-weight: bold; font-size: 1.1em; margin-top: 10px; }
-.correct { color: green; }
-.incorrect { color: red; }
-.explanation { font-style: italic; color: #333; margin-top: 5px; }
-#timer { font-size: 1.2em; color: #ffb703; margin-top: 10px; }
-.progress-bar { width: 80%; background: #ccc; border-radius: 8px; margin: 20px auto; overflow: hidden; }
-.progress { height: 15px; background: #5F2A7F; width: 0%; transition: width 0.3s; }
+   body {
+     font-family: "Segoe UI", sans-serif;
+     background: linear-gradient(135deg, #5F2A7F, #A3A3A3); /* Morado y gris */
+     color: #fff;
+     text-align: center;
+     margin: 0;
+     padding: 0;
+   }
+   h1 {
+     margin-top: 20px;
+   }
+   .container {
+     background: #fff;
+     color: #000;
+     margin: 20px auto;
+     padding: 20px;
+     border-radius: 12px;
+     width: 85%;
+     max-width: 600px;
+     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+   }
+   button {
+     background-color: #5F2A7F; /* Morado */
+     color: #fff;
+     border: none;
+     border-radius: 8px;
+     padding: 10px 20px;
+     margin: 10px;
+     cursor: pointer;
+     font-size: 1em;
+   }
+   button:hover {
+     background-color: #4A1F6C; /* Morado más oscuro */
+   }
+   .progress-bar {
+     width: 80%;
+     background: #ccc;
+     border-radius: 8px;
+     margin: 20px auto;
+     overflow: hidden;
+   }
+   .progress {
+     height: 15px;
+     background: #5F2A7F; /* Morado */
+     width: 0%;
+     transition: width 0.3s;
+   }
+   #timer {
+     font-size: 1.2em;
+     color: #ffb703;
+     margin-top: 10px;
+   }
+   .feedback {
+     font-weight: bold;
+     font-size: 1.1em;
+     margin-top: 10px;
+   }
+   .correct {
+     color: green;
+   }
+   .incorrect {
+     color: red;
+   }
+   .explanation {
+     font-style: italic;
+     margin-top: 5px;
+     color: #555;
+   }
+   table {
+     width: 80%;
+     margin: 20px auto;
+     background: #fff;
+     color: #000;
+     border-collapse: collapse;
+     border-radius: 10px;
+     overflow: hidden;
+   }
+   th, td {
+     padding: 8px 10px;
+     border-bottom: 1px solid #ccc;
+   }
+   header {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 30px;
+     padding: 15px;
+     background: #fff;
+   }
+   .logo {
+     height: 60px;
+     width: auto;
+   }
+</styl<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Challenge: Skills for Business</title>
+<style>
+   body {
+     font-family: "Segoe UI", sans-serif;
+     background: linear-gradient(135deg, #5F2A7F, #A3A3A3); /* Morado y gris */
+     color: #fff;
+     text-align: center;
+     margin: 0;
+     padding: 0;
+   }
+   h1 {
+     margin-top: 20px;
+   }
+   .container {
+     background: #fff;
+     color: #000;
+     margin: 20px auto;
+     padding: 20px;
+     border-radius: 12px;
+     width: 85%;
+     max-width: 600px;
+     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+   }
+   button {
+     background-color: #5F2A7F; /* Morado */
+     color: #fff;
+     border: none;
+     border-radius: 8px;
+     padding: 10px 20px;
+     margin: 10px;
+     cursor: pointer;
+     font-size: 1em;
+   }
+   button:hover {
+     background-color: #4A1F6C; /* Morado más oscuro */
+   }
+   .progress-bar {
+     width: 80%;
+     background: #ccc;
+     border-radius: 8px;
+     margin: 20px auto;
+     overflow: hidden;
+   }
+   .progress {
+     height: 15px;
+     background: #5F2A7F; /* Morado */
+     width: 0%;
+     transition: width 0.3s;
+   }
+   #timer {
+     font-size: 1.2em;
+     color: #ffb703;
+     margin-top: 10px;
+   }
+   .feedback {
+     font-weight: bold;
+     font-size: 1.1em;
+     margin-top: 10px;
+   }
+   .correct {
+     color: green;
+   }
+   .incorrect {
+     color: red;
+   }
+   .explanation {
+     font-style: italic;
+     margin-top: 5px;
+     color: #555;
+   }
+   table {
+     width: 80%;
+     margin: 20px auto;
+     background: #fff;
+     color: #000;
+     border-collapse: collapse;
+     border-radius: 10px;
+     overflow: hidden;
+   }
+   th, td {
+     padding: 8px 10px;
+     border-bottom: 1px solid #ccc;
+   }
+   header {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 30px;
+     padding: 15px;
+     background: #fff;
+   }
+   .logo {
+     height: 60px;
+     width: auto;
+   }
 </style>
 </head>
 <body>
+
+<!-- Header con 3 logos -->
 <header>
-<img src="Salimosaganar.png" alt="Logo Izquierdo" class="logo">
-<img src="MSM.png" alt="Logo Central" class="logo">
-<img src="Portafolio.png" alt="Logo Derecho" class="logo">
+    <img src="Salimosaganar.png" alt="Logo Izquierdo" class="logo">
+    <img src="MSM.png" alt="Logo Central" class="logo">
+    <img src="Portafolio.png" alt="Logo Derecho" class="logo">
 </header>
 
 <h1>📊 Excel Challenge: Skills for Business</h1>
@@ -101,15 +238,12 @@ border-bottom: 1px solid #ccc;
 
 <h2>🏅 Ranking General</h2>
 <table id="rankingTable">
-<thead><tr><th>Posición</th><th>Nombre</th><th>Nivel</th><th>Puntaje</th><th>Fecha</th></tr></thead>
+<thead><tr><th>Nombre</th><th>Nivel</th><th>Puntaje</th><th>Fecha</th></tr></thead>
 <tbody></tbody>
 </table>
 
 <script>
-const siteUrl = "https://collaboration.mdlz.com/sites/SCTMexico";
-const listName = "Resultados Excel Challenge";
-
-// ==================== PREGUNTAS ====================
+// ==================== PREGUNTAS POR NIVEL ====================
 const preguntas = {
 basico: [
 { q: "¿Qué atajo abre un libro nuevo en Excel?", options: ["Ctrl + N", "Ctrl + O", "Ctrl + L", "Ctrl + W"], answer: "Ctrl + N", explanation: "Ctrl + N abre un nuevo libro de Excel rápidamente." },
@@ -161,133 +295,115 @@ const resultEl = document.getElementById("result");
 const rankingTable = document.querySelector("#rankingTable tbody");
 const feedbackEl = document.getElementById("feedback");
 const explanationEl = document.getElementById("explanation");
+let canAnswer = true;
 
+// ==================== INICIO ====================
 startBtn.addEventListener("click", () => {
-player = document.getElementById("playerName").value.trim();
-nivel = document.getElementById("level").value;
-if (!player) return alert("Por favor ingresa tu nombre completo.");
-loginEl.style.display = "none";
-gameEl.style.display = "block";
-current = 0; score = 0;
-showQuestion();
+    player = document.getElementById("playerName").value.trim();
+    nivel = document.getElementById("level").value;
+    if (player === "") { alert("Por favor ingresa tu nombre completo."); return; }
+    loginEl.style.display = "none";
+    gameEl.style.display = "block";
+    current = 0; score = 0;
+    showQuestion();
 });
 
+// ==================== FUNCIONES ====================
 function showQuestion() {
-const set = preguntas[nivel];
-if (current >= set.length) return endGame();
-const q = set[current];
-questionEl.textContent = q.q;
-optionsEl.innerHTML = "";
-feedbackEl.textContent = "";
-explanationEl.textContent = "";
+    const set = preguntas[nivel];
+    if (current >= set.length) { endGame(); return; }
+    const q = set[current];
+    questionEl.textContent = q.q;
+    optionsEl.innerHTML = "";
+    feedbackEl.textContent = "";
+    explanationEl.textContent = "";
+    canAnswer = true;
 
-q.options.forEach(opt => {
-const btn = document.createElement("button");
-btn.textContent = opt;
-btn.onclick = () => checkAnswer(opt);
-optionsEl.appendChild(btn);
-});
+    q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt);
+        optionsEl.appendChild(btn);
+    });
 
-resetTimer();
-progressEl.style.width = `${(current / set.length) * 100}%`;
+    resetTimer();
+    progressEl.style.width = `${(current / set.length) * 100}%`;
 }
 
 function resetTimer() {
-clearInterval(timer);
-timeLeft = 20;
-timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
-timer = setInterval(() => {
-timeLeft--;
-timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
-if (timeLeft <= 0) {
-clearInterval(timer);
-feedbackEl.textContent = "⏰ Tiempo agotado!";
-feedbackEl.className = "feedback incorrect";
-explanationEl.textContent = preguntas[nivel][current].explanation;
-setTimeout(() => { current++; showQuestion(); }, 2000);
-}
-}, 1000);
+    clearInterval(timer);
+    timeLeft = 20;
+    timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            feedbackEl.textContent = "⏰ Tiempo agotado!";
+            feedbackEl.className = "feedback incorrect";
+            explanationEl.textContent = preguntas[nivel][current].explanation;
+            canAnswer = false;
+            setTimeout(() => {
+                current++;
+                showQuestion();
+            }, 2000);
+        }
+    }, 1000);
 }
 
 function checkAnswer(selected) {
-clearInterval(timer);
-const set = preguntas[nivel];
-const correct = set[current].answer;
-if (selected === correct) {
-score++;
-feedbackEl.textContent = "✅ Correcto!";
-feedbackEl.className = "feedback correct";
-} else {
-feedbackEl.textContent = "❌ Incorrecto!";
-feedbackEl.className = "feedback incorrect";
-}
-explanationEl.textContent = set[current].explanation;
-setTimeout(() => { current++; showQuestion(); }, 2000);
+    if (!canAnswer) return;
+    canAnswer = false;
+    clearInterval(timer);
+    const set = preguntas[nivel];
+    const correct = set[current].answer;
+
+    if (selected === correct) {
+        score++;
+        feedbackEl.textContent = "✅ Correcto!";
+        feedbackEl.className = "feedback correct";
+    } else {
+        feedbackEl.textContent = `❌ Incorrecto!`;
+        feedbackEl.className = "feedback incorrect";
+    }
+
+    explanationEl.textContent = set[current].explanation;
+
+    setTimeout(() => {
+        current++;
+        showQuestion();
+    }, 2000);
 }
 
 function endGame() {
-clearInterval(timer);
-const set = preguntas[nivel];
-const percentage = Math.round((score / set.length) * 100);
-resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}%</h3>`;
-gameEl.style.display = "none";
-guardarResultadoEnSharePoint(player, percentage, nivel);
-obtenerRankingDesdeSharePoint();
+    clearInterval(timer);
+    const set = preguntas[nivel];
+    const percentage = Math.round((score / set.length) * 100);
+    const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "🥲";
+    resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
+    <p>${percentage >= 80 ? "¡Felicidades, aprobaste! Continua con el siguiente nivel." : "No alcanzaste la calificación aprobatoria, inténtalo nuevamente."}</p>
+    <button onclick="location.reload()">Inicio</button>`;
+    gameEl.style.display = "none";
+
+    saveResult(player, nivel, percentage);
 }
 
-async function guardarResultadoEnSharePoint(nombre, puntaje, nivel) {
-try {
-const digestResponse = await fetch(`${siteUrl}/_api/contextinfo`, { method: "POST", headers: { "Accept": "application/json;odata=verbose" }});
-const digestData = await digestResponse.json();
-const digestValue = digestData.d.GetContextWebInformation.FormDigestValue;
+// ==================== RANKING LOCAL ====================
+function saveResult(name, level, score) {
+    const dateObj = new Date();
+    const date = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth()+1).padStart(2, '0')}-${dateObj.getFullYear()}`;
 
-const item = {
-"__metadata": { "type": "SP.Data.Resultados_x0020_Excel_x0020_ChallengeListItem" },
-"Title": nombre,
-"Puntaje": puntaje,
-"Nivel": nivel,
-"Fecha": new Date().toLocaleDateString("es-MX")
-};
+    const row = { name, level, score, date };
+    if (!window.ranking) window.ranking = [];
+    window.ranking.push(row);
 
-const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items`, {
-method: "POST",
-headers: {
-"Accept": "application/json;odata=verbose",
-"Content-Type": "application/json;odata=verbose",
-"X-RequestDigest": digestValue
-},
-body: JSON.stringify(item)
-});
+    window.ranking.sort((a,b) => b.score - a.score);
 
-if (response.ok) console.log("✅ Resultado guardado correctamente en SharePoint");
-else console.error("❌ Error al guardar:", await response.text());
-} catch (e) {
-console.error("⚠️ Error al conectar con SharePoint:", e);
+    rankingTable.innerHTML = "";
+    window.ranking.forEach(r => {
+        rankingTable.innerHTML += `<tr><td>${r.name}</td><td>${r.level}</td><td>${r.score}%</td><td>${r.date}</td></tr>`;
+    });
 }
-}
-
-async function obtenerRankingDesdeSharePoint() {
-try {
-const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items?$select=Title,Puntaje,Nivel,Fecha&$orderby=Puntaje desc`, {
-method: "GET",
-headers: { "Accept": "application/json;odata=verbose" }
-});
-const data = await response.json();
-mostrarRanking(data.d.results);
-} catch (e) {
-console.error("⚠️ No se pudo obtener el ranking:", e);
-}
-}
-
-function mostrarRanking(items) {
-rankingTable.innerHTML = "";
-items.forEach((i, idx) => {
-rankingTable.innerHTML += `<tr><td>${idx + 1}</td><td>${i.Title}</td><td>${i.Nivel}</td><td>${i.Puntaje}%</td><td>${i.Fecha}</td></tr>`;
-});
-}
-
-// cargar ranking desde inicio
-obtenerRankingDesdeSharePoint();
 </script>
 </body>
 </html>
