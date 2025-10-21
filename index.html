@@ -145,7 +145,7 @@ const rankingTable = document.querySelector("#rankingTable tbody");
 startBtn.addEventListener("click", () => {
 player = document.getElementById("playerName").value.trim();
 nivel = document.getElementById("level").value;
-if (player === "") { alert("Por favor ingresa tu nombre o correo."); return; }
+if (player === "") { alert("Por favor ingresa tu nombre completo."); return; }
 loginEl.style.display = "none";
 gameEl.style.display = "block";
 current = 0; score = 0;
@@ -198,26 +198,46 @@ const set = preguntas[nivel];
 const percentage = Math.round((score / set.length) * 100);
 const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "😐";
 resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
-<p>${percentage >= 80 ? "¡Felicidades, aprobaste!" : "No alcanzaste el 80%. Inténtalo nuevamente."}</p>
-<button onclick="location.reload()">Reiniciar</button>`;
+<p>${percentage >= 80 ? "¡Felicidades, aprobaste! Continua con el siguiente nivel." : "No alcanzaste la calificación aprobatoria, inténtalo nuevamente. Da clic en el botón Inicio"}</p>
+<button onclick="location.reload()">Inicio</button>`;
 gameEl.style.display = "none";
 saveResult(player, nivel, percentage);
 }
 
-// ==================== RANKING Y EXPORTACIÓN ====================
+// ==================== ENVÍO A POWER AUTOMATE / SHAREPOINT ====================
 function saveResult(name, level, score) {
-const date = new Date().toLocaleString();
+const date = new Date().toISOString();
 const row = `<tr><td>${name}</td><td>${level}</td><td>${score}%</td><td>${date}</td></tr>`;
 rankingTable.innerHTML += row;
 
-// === Envío a Power Automate ===
-fetch("https://prod-xx.westus.logic.azure.com/workflows/TU_ID_DE_FLUJO/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=TU_TOKEN", {
+const payload = {
+Nombre: name,
+Nivel: level,
+Puntaje: parseInt(score),
+Fecha: date
+};
+
+// 🔗 Reemplaza esta URL con la de tu flujo Power Automate
+const urlPowerAutomate = "https://default18a01ad89727498aa47d17374c6fd9.f7.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/2539677317d84c6ea2f3ce57620bf0ea/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S8BpVMQBP7Y5W_u70hu3hj4iTnqxBSzHAAUCku62H9Y";
+
+fetch(urlPowerAutomate, {
 method: "POST",
 headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ Nombre: name, Nivel: level, Puntaje: score, Fecha: date })
+body: JSON.stringify(payload)
 })
-.then(res => console.log("Resultado enviado a Power Automate"))
-.catch(err => console.error(err));
+.then(res => {
+if (res.ok) {
+console.log("✅ Resultado enviado correctamente a Power Automate / SharePoint");
+alert("🎯 Resultado registrado correctamente en SharePoint.");
+} else {
+console.error("❌ Error al enviar los datos: ", res.statusText);
+alert("⚠️ Error al registrar resultado. Intenta de nuevo.");
+}
+})
+.catch(err => {
+console.error("⚠️ Error de conexión con Power Automate: ", err);
+alert("Error de conexión al servidor. Revisa la red o el flujo.");
+});
 }
 </script>
 </body>
