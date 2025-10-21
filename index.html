@@ -6,97 +6,81 @@
 <title>Excel Challenge: Skills for Business</title>
 <style>
 body {
-font-family: "Segoe UI", sans-serif;
-background: linear-gradient(135deg, #5F2A7F, #A3A3A3);
-color: #fff;
-text-align: center;
-margin: 0;
-padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #5F2A7F, #A3A3A3);
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
-h1 {
-margin-top: 20px;
-}
+h1 { margin-top: 20px; }
 .container {
-background: #fff;
-color: #000;
-margin: 20px auto;
-padding: 20px;
-border-radius: 12px;
-width: 85%;
-max-width: 600px;
-box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  background: #fff;
+  color: #000;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 85%;
+  max-width: 600px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 button {
-background-color: #5F2A7F;
-color: #fff;
-border: none;
-border-radius: 8px;
-padding: 10px 20px;
-margin: 10px;
-cursor: pointer;
-font-size: 1em;
+  background-color: #5F2A7F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 1em;
 }
-button:hover {
-background-color: #4A1F6C;
-}
+button:hover { background-color: #4A1F6C; }
 .progress-bar {
-width: 80%;
-background: #ccc;
-border-radius: 8px;
-margin: 20px auto;
-overflow: hidden;
+  width: 80%;
+  background: #ccc;
+  border-radius: 8px;
+  margin: 20px auto;
+  overflow: hidden;
 }
 .progress {
-height: 15px;
-background: #5F2A7F;
-width: 0%;
-transition: width 0.3s;
+  height: 15px;
+  background: #5F2A7F;
+  width: 0%;
+  transition: width 0.3s;
 }
-#timer {
-font-size: 1.2em;
-color: #ffb703;
-margin-top: 10px;
-}
-.feedback {
-font-weight: bold;
-font-size: 1.1em;
-margin-top: 10px;
-}
-.correct {
-color: green;
-}
-.incorrect {
-color: red;
-}
+#timer { font-size: 1.2em; color: #ffb703; margin-top: 10px; }
+.feedback { font-weight: bold; font-size: 1.1em; margin-top: 10px; }
+.correct { color: green; }
+.incorrect { color: red; }
 .explanation {
-font-style: italic;
-margin-top: 5px;
-color: #555;
+  font-style: italic;
+  margin-top: 5px;
+  color: #555;
 }
 table {
-width: 80%;
-margin: 20px auto;
-background: #fff;
-color: #000;
-border-collapse: collapse;
-border-radius: 10px;
-overflow: hidden;
+  width: 80%;
+  margin: 20px auto;
+  background: #fff;
+  color: #000;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
 }
 th, td {
-padding: 8px 10px;
-border-bottom: 1px solid #ccc;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ccc;
 }
 header {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 30px;
-padding: 15px;
-background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 15px;
+  background: #fff;
 }
 .logo {
-height: 60px;
-width: auto;
+  height: 60px;
+  width: auto;
 }
 </style>
 </head>
@@ -107,36 +91,36 @@ width: auto;
 
 <!-- Header con 3 logos -->
 <header>
-<img src="Salimosaganar.png" alt="Logo Izquierdo" class="logo">
-<img src="MSM.png" alt="Logo Central" class="logo">
-<img src="Portafolio.png" alt="Logo Derecho" class="logo">
+  <img src="Salimosaganar.png" alt="Logo Izquierdo" class="logo">
+  <img src="MSM.png" alt="Logo Central" class="logo">
+  <img src="Portafolio.png" alt="Logo Derecho" class="logo">
 </header>
 
 <h1>📊 Excel Challenge: Skills for Business</h1>
 
 <div class="container">
-<div id="login">
-<p>Ingresa tu nombre para comenzar:</p>
-<input type="text" id="playerName" placeholder="Tu nombre y apellidos"><br><br>
-<p>Selecciona el nivel de evaluación:</p>
-<select id="level">
-<option value="basico">Nivel Básico</option>
-<option value="intermedio">Nivel Intermedio</option>
-<option value="avanzado">Nivel Avanzado</option>
-</select><br><br>
-<button id="startBtn">Iniciar Evaluación</button>
-</div>
+  <div id="login">
+    <p>Ingresa tu nombre para comenzar:</p>
+    <input type="text" id="playerName" placeholder="Tu nombre y apellidos"><br><br>
+    <p>Selecciona el nivel de evaluación:</p>
+    <select id="level">
+      <option value="basico">Nivel Básico</option>
+      <option value="intermedio">Nivel Intermedio</option>
+      <option value="avanzado">Nivel Avanzado</option>
+    </select><br><br>
+    <button id="startBtn">Iniciar Evaluación</button>
+  </div>
 
-<div id="game" style="display:none;">
-<p id="question"></p>
-<div id="options"></div>
-<p id="timer"></p>
-<div class="progress-bar"><div class="progress" id="progress"></div></div>
-<p class="feedback" id="feedback"></p>
-<p class="explanation" id="explanation"></p>
-</div>
+  <div id="game" style="display:none;">
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="timer"></p>
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <p class="feedback" id="feedback"></p>
+    <p class="explanation" id="explanation"></p>
+  </div>
 
-<div id="result"></div>
+  <div id="result"></div>
 </div>
 
 <h2>🏅 Ranking General</h2>
@@ -146,49 +130,24 @@ width: auto;
 </table>
 
 <script>
-// ==================== CONFIGURACIÓN DE SHAREPOINT ====================
+// ==================== CONFIGURACIÓN SHAREPOINT ====================
 const siteUrl = "https://collaboration.mdlz.com/sites/SCTMexico";
 const listName = "Resultados Excel Challenge";
 
-<script>
-// ==================== PREGUNTAS POR NIVEL ====================
+// ==================== PREGUNTAS ====================
 const preguntas = {
-basico: [
-{ q: "¿Qué atajo abre un libro nuevo en Excel?", options: ["Ctrl + N", "Ctrl + O", "Ctrl + L", "Ctrl + W"], answer: "Ctrl + N", explanation: "Ctrl + N abre un nuevo libro de Excel rápidamente." },
-{ q: "¿Qué función suma un rango de celdas?", options: ["SUM", "COUNT", "AVERAGE", "ADD"], answer: "SUM", explanation: "La función SUM suma los valores de un rango de celdas." },
-{ q: "¿Qué hace la función AVERAGE?", options: ["Cuenta celdas", "Calcula promedio", "Muestra máximo", "Suma valores"], answer: "Calcula promedio", explanation: "AVERAGE calcula el promedio de los números en un rango de celdas." },
-{ q: "¿Qué símbolo se usa para fórmulas?", options: ["@", "=", "+", "#"], answer: "=", explanation: "Todas las fórmulas en Excel comienzan con el signo igual (=)." },
-{ q: "¿Cómo se llama la pestaña donde se crean gráficos?", options: ["Inicio", "Insertar", "Fórmulas", "Datos"], answer: "Insertar", explanation: "La pestaña Insertar contiene todas las opciones para crear gráficos." },
-{ q: "¿Qué hace Ctrl + C?", options: ["Pega", "Copia", "Corta", "Deshace"], answer: "Copia", explanation: "Ctrl + C copia el contenido seleccionado al portapapeles." },
-{ q: "¿Qué tipo de dato maneja la función TODAY()?", options: ["Texto", "Número", "Fecha", "Hora"], answer: "Fecha", explanation: "TODAY() devuelve la fecha actual." },
-{ q: "¿Qué hace la función MAX?", options: ["Devuelve el mayor valor", "Cuenta celdas", "Suma", "Promedia"], answer: "Devuelve el mayor valor", explanation: "MAX devuelve el valor máximo dentro de un rango." },
-{ q: "¿Qué opción ordena datos?", options: ["Filtros", "Ordenar", "Buscar", "Tabla dinámica"], answer: "Ordenar", explanation: "La opción Ordenar permite organizar los datos de menor a mayor o viceversa." },
-{ q: "¿Qué es una celda activa?", options: ["La celda seleccionada", "La primera del libro", "La celda bloqueada", "Una celda vacía"], answer: "La celda seleccionada", explanation: "La celda activa es aquella que está actualmente seleccionada." }
-],
-intermedio: [
-{ q: "¿Qué hace la función CONCAT?", options: ["Suma números", "Une textos", "Convierte texto a número", "Divide texto"], answer: "Une textos", explanation: "CONCAT une textos de diferentes celdas en una sola cadena." },
-{ q: "¿Qué hace la función IF?", options: ["Compara valores", "Suma filas", "Filtra datos", "Ordena valores"], answer: "Compara valores", explanation: "IF permite tomar decisiones según condiciones lógicas." },
-{ q: "¿Qué diferencia hay entre COUNT y COUNTA?", options: ["COUNT cuenta números y COUNTA todo tipo de datos", "Son iguales", "COUNTA solo texto", "COUNT solo texto"], answer: "COUNT cuenta números y COUNTA todo tipo de datos", explanation: "COUNT solo cuenta números, COUNTA cuenta todo tipo de celdas no vacías." },
-{ q: "¿Qué hace el formato condicional?", options: ["Cambia color según criterios", "Cambia tamaño de texto", "Oculta celdas", "Ordena filas"], answer: "Cambia color según criterios", explanation: "El formato condicional permite cambiar colores de celdas según reglas definidas." },
-{ q: "¿Qué herramienta se usa para resumir datos rápidamente?", options: ["Gráficos", "Tablas dinámicas", "Filtros", "Escenarios"], answer: "Tablas dinámicas", explanation: "Las tablas dinámicas resumen grandes cantidades de datos fácilmente." },
-{ q: "¿Qué función busca un valor en una columna?", options: ["VLOOKUP", "SUMIF", "MATCH", "FILTER"], answer: "VLOOKUP", explanation: "VLOOKUP permite buscar un valor específico en una columna y devolver datos relacionados." },
-{ q: "¿Qué función redondea un número?", options: ["ROUND", "INT", "DECIMAL", "FLOOR"], answer: "ROUND", explanation: "ROUND redondea un número al número de decimales especificado." },
-{ q: "¿Qué herramienta agrupa datos numéricos por intervalos?", options: ["Agrupar en tabla dinámica", "Buscar objetivo", "Solver", "Formato condicional"], answer: "Agrupar en tabla dinámica", explanation: "Agrupar permite organizar datos por rangos dentro de tablas dinámicas." },
-{ q: "¿Qué hace Ctrl + Shift + L?", options: ["Aplica filtros", "Abre cuadro de nombre", "Cierra Excel", "Selecciona hoja"], answer: "Aplica filtros", explanation: "Esta combinación activa o desactiva los filtros en la hoja." },
-{ q: "¿Qué es un rango con nombre?", options: ["Conjunto de celdas nombradas", "Una celda bloqueada", "Un filtro", "Un gráfico"], answer: "Conjunto de celdas nombradas", explanation: "Un rango con nombre permite referirse a un conjunto de celdas fácilmente." }
-],
-avanzado: [
-{ q: "¿Qué función reemplaza VLOOKUP en versiones modernas?", options: ["MATCH", "XLOOKUP", "FILTER", "SEARCH"], answer: "XLOOKUP", explanation: "XLOOKUP reemplaza VLOOKUP y permite búsquedas más flexibles." },
-{ q: "¿Qué herramienta optimiza resultados con restricciones?", options: ["Solver", "Escenarios", "Buscar objetivo", "Filtros"], answer: "Solver", explanation: "Solver encuentra la mejor solución cumpliendo restricciones." },
-{ q: "¿Qué hace la función INDEX?", options: ["Devuelve valor en posición específica", "Cuenta filas", "Ordena datos", "Busca duplicados"], answer: "Devuelve valor en posición específica", explanation: "INDEX devuelve el valor de una celda en un rango según fila y columna." },
-{ q: "¿Qué combinación permite búsquedas dinámicas?", options: ["INDEX + MATCH", "IF + OR", "VLOOKUP + OFFSET", "FILTER + SORT"], answer: "INDEX + MATCH", explanation: "INDEX + MATCH permite búsquedas más flexibles que VLOOKUP." },
-{ q: "¿Qué hace TRIM?", options: ["Elimina espacios extra", "Convierte texto en número", "Redondea valores", "Combina texto"], answer: "Elimina espacios extra", explanation: "TRIM elimina espacios iniciales, finales y dobles dentro de un texto." },
-{ q: "¿Qué hace INDIRECT?", options: ["Devuelve referencia de texto", "Cuenta celdas", "Copia valores", "Convierte número en texto"], answer: "Devuelve referencia de texto", explanation: "INDIRECT convierte un texto en referencia válida a celdas." },
-{ q: "¿Qué función extrae texto desde el medio de una celda?", options: ["LEFT", "MID", "RIGHT", "TEXT"], answer: "MID", explanation: "MID extrae una cantidad de caracteres desde el medio de un texto." },
-{ q: "¿Qué función convierte texto en número?", options: ["VALUE", "TEXT", "NUM", "FORMAT"], answer: "VALUE", explanation: "VALUE convierte texto que representa un número en un valor numérico." },
-{ q: "¿Qué tipo de gráfico muestra participación porcentual?", options: ["Circular", "Barras", "Líneas", "Histograma"], answer: "Circular", explanation: "Los gráficos circulares muestran la proporción de cada parte respecto al total." },
-{ q: "¿Qué hace 'Actualizar todo' en tabla dinámica?", options: ["Refresca datos origen", "Ordena campos", "Agrega campos", "Duplica tabla"], answer: "Refresca datos origen", explanation: "Actualizar todo actualiza los datos que la tabla dinámica utiliza como origen." }
-]
+  basico: [
+    { q: "¿Qué atajo abre un libro nuevo en Excel?", options: ["Ctrl + N", "Ctrl + O", "Ctrl + L", "Ctrl + W"], answer: "Ctrl + N", explanation: "Ctrl + N abre un nuevo libro de Excel rápidamente." },
+    { q: "¿Qué función suma un rango de celdas?", options: ["SUM", "COUNT", "AVERAGE", "ADD"], answer: "SUM", explanation: "La función SUM suma los valores de un rango de celdas." },
+    { q: "¿Qué hace la función AVERAGE?", options: ["Cuenta celdas", "Calcula promedio", "Muestra máximo", "Suma valores"], answer: "Calcula promedio", explanation: "AVERAGE calcula el promedio de los números en un rango de celdas." },
+    { q: "¿Qué símbolo se usa para fórmulas?", options: ["@", "=", "+", "#"], answer: "=", explanation: "Todas las fórmulas en Excel comienzan con el signo igual (=)." }
+  ],
+  intermedio: [
+    { q: "¿Qué hace la función CONCAT?", options: ["Suma números", "Une textos", "Convierte texto a número", "Divide texto"], answer: "Une textos", explanation: "CONCAT une textos de diferentes celdas en una sola cadena." }
+  ],
+  avanzado: [
+    { q: "¿Qué función reemplaza VLOOKUP en versiones modernas?", options: ["MATCH", "XLOOKUP", "FILTER", "SEARCH"], answer: "XLOOKUP", explanation: "XLOOKUP reemplaza VLOOKUP y permite búsquedas más flexibles." }
+  ]
 };
 
 // ==================== VARIABLES ====================
@@ -208,153 +167,151 @@ let canAnswer = true;
 
 // ==================== INICIO ====================
 startBtn.addEventListener("click", () => {
-player = document.getElementById("playerName").value.trim();
-nivel = document.getElementById("level").value;
-if (player === "") { alert("Por favor ingresa tu nombre completo."); return; }
-loginEl.style.display = "none";
-gameEl.style.display = "block";
-current = 0; score = 0;
-showQuestion();
+  player = document.getElementById("playerName").value.trim();
+  nivel = document.getElementById("level").value;
+  if (player === "") { alert("Por favor ingresa tu nombre completo."); return; }
+  loginEl.style.display = "none";
+  gameEl.style.display = "block";
+  current = 0; score = 0;
+  showQuestion();
 });
 
 // ==================== FUNCIONES ====================
 function showQuestion() {
-const set = preguntas[nivel];
-if (current >= set.length) { endGame(); return; }
-const q = set[current];
-questionEl.textContent = q.q;
-optionsEl.innerHTML = "";
-feedbackEl.textContent = "";
-explanationEl.textContent = "";
-canAnswer = true;
+  const set = preguntas[nivel];
+  if (current >= set.length) { endGame(); return; }
+  const q = set[current];
+  questionEl.textContent = q.q;
+  optionsEl.innerHTML = "";
+  feedbackEl.textContent = "";
+  explanationEl.textContent = "";
+  canAnswer = true;
 
-q.options.forEach(opt => {
-const btn = document.createElement("button");
-btn.textContent = opt;
-btn.onclick = () => checkAnswer(opt);
-optionsEl.appendChild(btn);
-});
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt);
+    optionsEl.appendChild(btn);
+  });
 
-resetTimer();
-progressEl.style.width = `${(current / set.length) * 100}%`;
+  resetTimer();
+  progressEl.style.width = `${(current / set.length) * 100}%`;
 }
 
 function resetTimer() {
-clearInterval(timer);
-timeLeft = 20;
-timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
-timer = setInterval(() => {
-timeLeft--;
-timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
-if (timeLeft <= 0) {
-clearInterval(timer);
-feedbackEl.textContent = "⏰ Tiempo agotado!";
-feedbackEl.className = "feedback incorrect";
-explanationEl.textContent = preguntas[nivel][current].explanation;
-canAnswer = false;
-setTimeout(() => {
-current++;
-showQuestion();
-}, 2000);
-}
-}, 1000);
+  clearInterval(timer);
+  timeLeft = 20;
+  timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+  timer = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = `⏱️ Tiempo: ${timeLeft}s`;
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      feedbackEl.textContent = "⏰ Tiempo agotado!";
+      feedbackEl.className = "feedback incorrect";
+      explanationEl.textContent = preguntas[nivel][current].explanation;
+      canAnswer = false;
+      setTimeout(() => { current++; showQuestion(); }, 2000);
+    }
+  }, 1000);
 }
 
 function checkAnswer(selected) {
-if (!canAnswer) return;
-canAnswer = false;
-clearInterval(timer);
-const set = preguntas[nivel];
-const correct = set[current].answer;
+  if (!canAnswer) return;
+  canAnswer = false;
+  clearInterval(timer);
+  const set = preguntas[nivel];
+  const correct = set[current].answer;
 
-if (selected === correct) {
-score++;
-feedbackEl.textContent = "✅ Correcto!";
-feedbackEl.className = "feedback correct";
-} else {
-feedbackEl.textContent = `❌ Incorrecto!`;
-feedbackEl.className = "feedback incorrect";
-}
+  if (selected === correct) {
+    score++;
+    feedbackEl.textContent = "✅ Correcto!";
+    feedbackEl.className = "feedback correct";
+  } else {
+    feedbackEl.textContent = `❌ Incorrecto!`;
+    feedbackEl.className = "feedback incorrect";
+  }
 
-explanationEl.textContent = set[current].explanation;
+  explanationEl.textContent = set[current].explanation;
 
-setTimeout(() => {
-current++;
-showQuestion();
-}, 2000);
+  setTimeout(() => {
+    current++;
+    showQuestion();
+  }, 2000);
 }
 
 function endGame() {
-clearInterval(timer);
-const set = preguntas[nivel];
-const percentage = Math.round((score / set.length) * 100);
-const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "🥲";
-resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
-<p>${percentage >= 80 ? "¡Felicidades, aprobaste!" : "Inténtalo nuevamente."}</p>
-<button onclick="location.reload()">Inicio</button>`;
-gameEl.style.display = "none";
+  clearInterval(timer);
+  const set = preguntas[nivel];
+  const percentage = Math.round((score / set.length) * 100);
+  const emoji = percentage >= 80 ? "🏆" : percentage >= 60 ? "💪" : "🥲";
+  resultEl.innerHTML = `<h3>Tu puntaje final: ${percentage}% ${emoji}</h3>
+  <p>${percentage >= 80 ? "¡Felicidades, aprobaste!" : "Inténtalo nuevamente."}</p>
+  <button onclick="location.reload()">Inicio</button>`;
+  gameEl.style.display = "none";
 
-guardarResultadoEnSharePoint(player, percentage, nivel);
-obtenerRankingDesdeSharePoint();
+  guardarResultadoEnSharePoint(player, percentage, nivel);
+  obtenerRankingDesdeSharePoint();
 }
 
 // ==================== SHAREPOINT API ====================
 async function guardarResultadoEnSharePoint(nombreJugador, puntaje, nivel) {
-try {
-const item = {
-"__metadata": { "type": "SP.Data.Resultados_x0020_Excel_x0020_ChallengeListItem" },
-"Title": nombreJugador,
-"Puntaje": puntaje,
-"Nivel": nivel,
-"Fecha": new Date().toLocaleDateString("es-MX")
-};
+  try {
+    const digest = document.getElementById("__REQUESTDIGEST").value || "undefined";
+    const item = {
+      "__metadata": { "type": "SP.Data.Resultados_x0020_Excel_x0020_ChallengeListItem" },
+      "Title": nombreJugador,
+      "Puntaje": puntaje,
+      "Nivel": nivel,
+      "Fecha": new Date().toLocaleDateString("es-MX")
+    };
 
-const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items`, {
-method: "POST",
-headers: {
-"Accept": "application/json;odata=verbose",
-"Content-Type": "application/json;odata=verbose",
-"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value
-},
-body: JSON.stringify(item)
-});
+    const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json;odata=verbose",
+        "Content-Type": "application/json;odata=verbose",
+        "X-RequestDigest": digest
+      },
+      body: JSON.stringify(item)
+    });
 
-if (response.ok) console.log("✅ Resultado guardado correctamente en SharePoint");
-else console.error("❌ Error al guardar en SharePoint:", await response.text());
-} catch (error) {
-console.error("⚠️ No se pudo conectar con SharePoint:", error);
-}
+    if (response.ok) console.log("✅ Resultado guardado correctamente en SharePoint");
+    else console.error("❌ Error al guardar en SharePoint:", await response.text());
+  } catch (error) {
+    console.error("⚠️ No se pudo conectar con SharePoint:", error);
+  }
 }
 
 async function obtenerRankingDesdeSharePoint() {
-try {
-const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items?$select=Title,Puntaje,Nivel,Fecha&$orderby=Puntaje desc`, {
-method: "GET",
-headers: { "Accept": "application/json;odata=verbose" }
-});
+  try {
+    const response = await fetch(`${siteUrl}/_api/web/lists/getbytitle('${listName}')/items?$select=Title,Puntaje,Nivel,Fecha&$orderby=Puntaje desc`, {
+      method: "GET",
+      headers: { "Accept": "application/json;odata=verbose" }
+    });
 
-if (!response.ok) throw new Error("Error al obtener el ranking");
-const data = await response.json();
-const items = data.d.results;
-mostrarRanking(items);
-} catch (error) {
-console.error("⚠️ No se pudo obtener el ranking:", error);
-}
+    if (!response.ok) throw new Error("Error al obtener el ranking");
+    const data = await response.json();
+    const items = data.d.results;
+    mostrarRanking(items);
+  } catch (error) {
+    console.error("⚠️ No se pudo obtener el ranking:", error);
+  }
 }
 
 function mostrarRanking(items) {
-const rankingTable = document.querySelector("#rankingTable tbody");
-rankingTable.innerHTML = "";
-items.forEach((item, index) => {
-rankingTable.innerHTML += `<tr>
-<td>${index + 1}</td>
-<td>${item.Title}</td>
-<td>${item.Nivel}</td>
-<td>${item.Puntaje}%</td>
-<td>${item.Fecha}</td>
-</tr>`;
-});
+  rankingTable.innerHTML = "";
+  items.forEach((item, index) => {
+    rankingTable.innerHTML += `<tr>
+      <td>${index + 1}</td>
+      <td>${item.Title}</td>
+      <td>${item.Nivel}</td>
+      <td>${item.Puntaje}%</td>
+      <td>${item.Fecha}</td>
+    </tr>`;
+  });
 }
 </script>
+
 </body>
 </html>
